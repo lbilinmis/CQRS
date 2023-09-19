@@ -1,6 +1,9 @@
-﻿namespace CQRS.API.QueryCommand.Queries
+﻿using CQRS.API.QueryCommand.Results;
+using MediatR;
+
+namespace CQRS.API.QueryCommand.Queries
 {
-    public class GetStudentByIdQuery
+    public class GetStudentByIdQuery : IRequest<GetStudentByIdQueryResult>
     {
         public int Id { get; set; }
 

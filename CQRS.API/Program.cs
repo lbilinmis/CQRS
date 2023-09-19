@@ -1,5 +1,6 @@
 using CQRS.API.Data;
 using CQRS.API.QueryCommand.Handles;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,15 +17,18 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 {
     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
+builder.Services.AddMediatR(typeof(Program));
 
-builder.Services.AddScoped<GetStudentByIdQueryHandler>();
-builder.Services.AddScoped<GetStudentsQueryHandler>();
-builder.Services.AddScoped<CreateStudentCommandHandler>();
-builder.Services.AddScoped<RemoveStudentCommandHandler>();
-builder.Services.AddScoped<UpdateStudentCommandHandler>();
+
+//builder.Services.AddScoped<GetStudentByIdQueryHandler>();
+//builder.Services.AddScoped<GetStudentsQueryHandler>();
+//builder.Services.AddScoped<CreateStudentCommandHandler>();
+//builder.Services.AddScoped<RemoveStudentCommandHandler>();
+//builder.Services.AddScoped<UpdateStudentCommandHandler>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

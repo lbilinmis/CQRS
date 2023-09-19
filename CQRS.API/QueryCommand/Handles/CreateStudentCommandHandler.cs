@@ -1,9 +1,11 @@
 ﻿using CQRS.API.Data;
 using CQRS.API.QueryCommand.Commands;
+using MediatR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CQRS.API.QueryCommand.Handles
 {
-    public class CreateStudentCommandHandler
+    public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand>
     {
         private readonly StudentContext _context;
 
@@ -22,6 +24,20 @@ namespace CQRS.API.QueryCommand.Handles
             });
 
             _context.SaveChanges();
+        }
+
+        public async Task<Unit> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
+        {
+            _context.Students.Add(new Student()
+            {
+                Age = request.Age,
+                Name = request.Name,
+                Surname = request.Surname
+            });
+
+           await _context.SaveChangesAsync();
+
+            return Unit.Value;
         }
     }
 }
